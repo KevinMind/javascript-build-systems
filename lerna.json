@@ -3,13 +3,11 @@
     "bootstrap": {
     },
     "publish": {
-      "conventionalCommits": true,
+      "conventionalCommits": true
     }
   },
   "npmClient": "yarn",
-  "packages": [
-    "packages/*",
-  ],
+  "packages": ["packages/*"],
   "version": "independent",
-  "useWorkspaces": true,
+  "useWorkspaces": true
 }

@@ -19,5 +19,6 @@
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
-  }
+  },
+  "workspaces": ["packages/*"]
 }
