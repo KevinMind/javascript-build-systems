@@ -1,0 +1,15 @@
+{
+  "command": {
+    "bootstrap": {
+    },
+    "publish": {
+      "conventionalCommits": true,
+    }
+  },
+  "npmClient": "yarn",
+  "packages": [
+    "packages/*",
+  ],
+  "version": "independent",
+  "useWorkspaces": true,
+}
