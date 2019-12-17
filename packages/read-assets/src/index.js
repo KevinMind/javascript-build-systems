@@ -1,36 +1,42 @@
 import fs from 'fs';
+import path from 'path';
 
-const defaultOptions = {
-  publicPath: ''
-};
+const formatPath = staticPath => path => `${staticPath}/${path}`;
 
-const manifest = {
-  js: [],
-  css: []
-};
+export const renderCssToString = assets => assets.map(asset =>
+  `<link href="${asset}" rel="stylesheet">`
+).join('\n');
 
-export default (rootDir, options) => {
-  const { publicPath } = { ...defaultOptions, ...options };
-  if (fs.existsSync(rootDir)) {
-    return fs.readdirSync(rootDir, (err, files) => {
-      if (err) {
-        throw new Error(err);
+export const renderJsToString = assets => assets.map(asset =>
+  `<script defer src="${asset}" type="text/javascript"></script>`
+).join('\n');
+
+export default async (rootDir, options) => {
+  const { staticPath = '' } = options;
+
+  try {
+    const files = await fs.readdirSync(rootDir);
+    if (!files || !Array.isArray(files)) {
+      return new Error('files is not an array');
+    }
+    const formatter = formatPath(staticPath);
+
+    return files.reduce((acm, file) => {
+      const ext = path.extname(file);
+      const cleanExt = ext.replace('.', '');
+      const name = path.basename(file, ext);
+
+      if (name && cleanExt) {
+        if (acm[cleanExt] && Array.isArray(acm[cleanExt])) {
+          acm[cleanExt].push(formatter(file))
+        } else {
+          acm[cleanExt] = [formatter(file)]
+        }
       }
-      // need validation for non empty array
-      if (!files || !Array.isArray(files)) {
-        throw new Error('files is not an array');
-      }
-      return files.reduce((acm, file) => {
-        console.log({ file });
-        // if (file.includes('.js')) {
-        //   acm.js.push(file);
-        // }
-        // if (file.includes('.css')) {
-        //   acm.css.push(file);
-        // }
-        return acm;
-      }, manifest);
-    })
+      return acm;
+    }, {});
+
+  } catch (e) {
+    throw e;
   }
-  throw new Error(`rootDir: ${rootDir} does not exist`);
-}
+};
