@@ -1,0 +1,29 @@
+{
+  "name": "read-assets",
+  "version": "1.0.0",
+  "description": "> TODO: description",
+  "author": "kevinmeinhardt <kevin.meinhardt@smava.de>",
+  "homepage": "https://github.com/KevinMind/javascript-build-systems#readme",
+  "license": "ISC",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KevinMind/javascript-build-systems.git"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "start": "rollup -c -w",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/KevinMind/javascript-build-systems/issues"
+  },
+  "dependencies": {
+    "rollup": "^1.0.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^6.0.0",
+    "rollup-plugin-commonjs": "^10.1.0"
+  }
+}
