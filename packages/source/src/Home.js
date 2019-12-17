@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import logo from './react.svg';
 import './Home.css';
 
