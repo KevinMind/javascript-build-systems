@@ -11,7 +11,7 @@ export const renderJsToString = assets => assets.map(asset =>
   `<script defer src="${asset}" type="text/javascript"></script>`
 ).join('\n');
 
-export default async (rootDir, options) => {
+export default async (rootDir, options = {}) => {
   const { staticPath = '' } = options;
 
   try {

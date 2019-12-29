@@ -1,5 +1,7 @@
 require('dotenv').config();
 
+const webpack = require('webpack');
+const NodemonPlugin = require('nodemon-webpack-plugin'); // Ding
 const path = require('path');
 
 const {
@@ -23,8 +25,16 @@ module.exports = {
   node: {
     fs: 'empty',
     net:  'empty',
+    __dirname: true,
   },
+  devtool: 'source-map',
+  watch: !IS_PROD,
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new NodemonPlugin({ quiet: true }),
+  ],
   mode: MODE,
+  target: 'node',
   module: {
     rules: [
       {

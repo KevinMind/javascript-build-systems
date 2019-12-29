@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+const webpack = require('webpack');
 const ManifestPlugin = require('webpack-manifest-plugin');
 
 const path = require('path');
@@ -16,13 +17,22 @@ const MODE = IS_PROD ? 'production': 'development';
 
 console.log({ NODE_ENV, BUILD_PATH, ROOT_PATH, IS_DEBUG });
 
+const plugins = [
+  new ManifestPlugin()
+];
+
+if (!IS_PROD) {
+  plugins.push(new webpack.HotModuleReplacementPlugin())
+}
+
 module.exports = {
   entry: '../source/src/client.js',
   output: {
     filename: 'main.js',
-    path: path.join(ROOT_PATH, BUILD_PATH),
+    path: path.join(ROOT_PATH, BUILD_PATH, 'client'),
   },
   mode: MODE,
+  watch: !IS_PROD,
   module: {
     rules: [
       {
@@ -65,7 +75,5 @@ module.exports = {
       },
     ]
   },
-  plugins: [
-    new ManifestPlugin()
-  ]
+  plugins,
 };
