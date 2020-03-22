@@ -4,6 +4,6 @@ import ReactDOM from 'react-dom';
 
 ReactDOM.hydrate(<App />, document.getElementById('root'));
 
-if (module.hot) {
+if (typeof module !== 'undefined' && module.hot) {
   module.hot.accept();
 }
